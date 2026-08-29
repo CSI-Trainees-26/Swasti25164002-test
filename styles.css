@@ -52,25 +52,6 @@ a:focus-visible, [tabindex]:focus-visible {
   }
 }
 
-/* =====================================================
-   BACKGROUND IMAGES — how this works on every section below
-
-   Each banner (nav, hero, page header) is built from two parts:
-     1. the section itself, which always has a solid color, so it
-        looks finished with nothing added
-     2. a small empty div inside it (.nav__bg, .hero__media,
-        .page-head__media) that holds a background-image rule
-
-   OPTION A — plain color, no photo:
-     Delete that empty div from the HTML. The section keeps its
-     solid background and still looks intentional.
-
-   OPTION B — with a photo:
-     Keep the div, and just point the background-image rule at
-     your file, e.g. background-image: url('images/hero.jpg');
-     Sizing is already handled (background-size: cover), so any
-     photo dimensions will fill the space cleanly.
-   ===================================================== */
 
 /* ---------- nav ---------- */
 .nav {
