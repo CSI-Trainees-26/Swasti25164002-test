@@ -1,1 +1,3 @@
-# Swasti25164002-test
+NAME : Swasti Sagar
+STUDENT NO. : 25164002
+BRDANCH : AIML
