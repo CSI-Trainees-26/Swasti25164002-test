@@ -1,70 +1,405 @@
-/* ---------- Reset ---------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink: #F4F1E9;
+  --ink-dim: #B9B5AC;
+  --void: #14141A;
+  --void-soft: #1D1D24;
+  --line: rgba(244, 241, 233, 0.14);
+
+  --cozy: #93A67E;
+  --puzzle: #8C7CF0;
+  --create: #EE6E86;
+  --cook: #E69A56;
+  --adventure: #4F82A6;
+
+  --radius: 18px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--void);
+  color: var(--ink);
+  font-family: 'Space Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- Hero / Background section ----------
-   Replace 'background.jpg' below with the image file
-   you provide. Keep the image in the same folder as
-   this CSS file, or update the path accordingly.
----------------------------------------------------- */
-.hero {
+h1, h2, h3, h4 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  line-height: 1.08;
+  margin: 0;
+}
+
+a { color: inherit; text-decoration: none; }
+
+a:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   IMAGE / VIDEO PLACEHOLDERS
+   Drop <img> or <video> straight inside any .img-slot
+   div and the placeholder label disappears on its own.
+   ============================================ */
+.img-slot {
+  position: relative;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(135deg, rgba(244,241,233,0.05) 0 2px, transparent 2px 14px),
+    var(--void-soft);
+  border: 1px solid var(--line);
+}
+
+.img-slot::before {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.img-slot img,
+.img-slot video {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  min-height: 100vh;
-  background-image: url("images/1.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* ---------- Navbar ---------- */
-.navbar {
+.img-slot:has(img)::before,
+.img-slot:has(video)::before { display: none; }
+
+/* ============================================
+   NAV — background image adapts to the bar
+   via background-size:cover, any source size.
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 84px;
+}
+
+.nav__bg {
+  position: absolute;
+  inset: 0;
+  border: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.nav__bg::before { font-size: 0.55rem; }
+
+/* this is the trick: cover + center means whatever image
+   you drop into .nav__bg (portrait, landscape, huge, tiny)
+   always fills the bar without distortion */
+.nav__bg img,
+.nav__bg video {
+  object-fit: cover;
+  object-position: center;
+}
+
+.nav__content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 40px;
-  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent bar over the image */
+  padding: 0 6vw;
+  background: linear-gradient(180deg, rgba(20,20,26,0.35), rgba(20,20,26,0.55));
 }
 
-.logo {
-  color: #ffffff;
-  font-size: 24px;
-  font-weight: bold;
+.nav__logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
 }
+.nav__logo span { font-style: italic; font-weight: 500; opacity: 0.8; }
 
-.nav-links {
-  list-style: none;
+.nav__links {
   display: flex;
-  gap: 30px;
+  gap: 2.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.nav-links li a {
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 18px;
+.nav__links a { position: relative; padding-bottom: 4px; }
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 1px;
+  background: currentColor;
+  transition: width 0.35s var(--ease);
+}
+.nav__links a:hover::after { width: 100%; }
+
+@media (max-width: 640px) {
+  .nav__links { gap: 1.1rem; font-size: 0.68rem; }
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 84px;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  border: none;
+  border-radius: 0;
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20,20,26,0.35) 0%, rgba(20,20,26,0.55) 55%, rgba(20,20,26,0.92) 100%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 4rem 6vw 3rem;
+}
+
+.hero__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0 0 1rem;
+}
+
+.hero__title {
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  margin-bottom: 3.2rem;
+}
+
+.hero__title em {
+  font-style: italic;
   font-weight: 500;
-  transition: color 0.3s ease;
+  background: linear-gradient(90deg, var(--cozy), var(--puzzle), var(--create), var(--cook), var(--adventure));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.nav-links li a:hover {
-  color: #ffcc00;
+/* ============================================
+   TRENDING MARQUEE — pure CSS, no JS
+   Two identical groups sit side by side inside a
+   track twice the viewport width; the track slides
+   left by exactly one group's width (-50%) on loop,
+   so the seam is invisible and it scrolls forever.
+   ============================================ */
+.marquee { overflow: hidden; }
+
+.marquee__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0 0 0.9rem;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 600px) {
-  .navbar {
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px 20px;
-  }
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: scroll-marquee 28s linear infinite;
+}
 
-  .nav-links {
-    gap: 15px;
-  }
+/* hover to pause — a nice free interaction, still zero JS */
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__group {
+  display: flex;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.marquee__card {
+  flex: 0 0 auto;
+  width: clamp(140px, 16vw, 200px);
+  aspect-ratio: 2 / 3;
+  border-radius: 12px;
+  transition: transform 0.3s var(--ease);
+}
+
+.marquee__card:hover { transform: translateY(-6px); }
+
+@keyframes scroll-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============================================
+   EXPLORE — mood cards
+   ============================================ */
+.explore {
+  padding: 6rem 6vw;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.explore__head { text-align: center; max-width: 40ch; margin: 0 auto 3.5rem; }
+.explore__eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0 0 0.6rem;
+}
+.explore__title { font-size: clamp(2rem, 4.4vw, 3.2rem); }
+
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem;
+}
+
+.mood-card {
+  --tint: var(--cozy);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--void-soft);
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+.mood-card:hover { transform: translateY(-6px); border-color: var(--tint); }
+
+.mood-card--cozy      { --tint: var(--cozy); }
+.mood-card--puzzle    { --tint: var(--puzzle); }
+.mood-card--create    { --tint: var(--create); }
+.mood-card--cook      { --tint: var(--cook); }
+.mood-card--adventure { --tint: var(--adventure); }
+
+.mood-card__media {
+  aspect-ratio: 16 / 10;
+  border: none;
+  border-radius: 0;
+}
+
+.mood-card__body { padding: 1.3rem 1.4rem 1.6rem; }
+
+.mood-card__body h3 {
+  font-size: 1.35rem;
+  color: var(--tint);
+  margin-bottom: 0.4rem;
+}
+
+.mood-card__body p {
+  margin: 0 0 1rem;
+  color: var(--ink-dim);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.mood-card__games {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.mood-card__games li {
+  font-size: 0.72rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--ink-dim);
+}
+
+/* ============================================
+   ABOUT
+   ============================================ */
+.about {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 6vw 6rem;
+  text-align: center;
+}
+.about h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); margin-bottom: 1rem; }
+.about p { color: var(--ink-dim); line-height: 1.65; }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 4rem 6vw 2rem;
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 2rem;
+  max-width: 1280px;
+  margin: 0 auto 3rem;
+}
+
+.footer__tag { color: var(--ink-dim); font-size: 0.88rem; margin-top: 0.5rem; }
+
+.footer__col { display: flex; flex-direction: column; gap: 0.7rem; }
+.footer__col h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 0.3rem;
+}
+.footer__col a { font-size: 0.9rem; color: var(--ink-dim); transition: color 0.25s var(--ease); }
+.footer__col a:hover { color: var(--ink); }
+
+.footer__bottom {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+}
+
+@media (max-width: 780px) {
+  .footer__top { grid-template-columns: 1fr 1fr; }
 }
