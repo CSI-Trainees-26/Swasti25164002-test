@@ -147,7 +147,7 @@ a:focus-visible, [tabindex]:focus-visible {
   inset: 0;
   background-size: cover;
   background-position: center;
-   background-image: url('images/14.jpg'); 
+  background-color: rgb(16, 16, 40); 
 }
 
 .hero__scrim {
