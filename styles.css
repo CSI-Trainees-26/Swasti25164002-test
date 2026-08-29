@@ -52,74 +52,42 @@ a:focus-visible, [tabindex]:focus-visible {
   }
 }
 
-/* ============================================
-   IMAGE / VIDEO PLACEHOLDERS
-   Drop <img> or <video> straight inside any .img-slot
-   div and the placeholder label disappears on its own.
-   ============================================ */
-.img-slot {
-  position: relative;
-  overflow: hidden;
-  background:
-    repeating-linear-gradient(135deg, rgba(244,241,233,0.05) 0 2px, transparent 2px 14px),
-    var(--void-soft);
-  border: 1px solid var(--line);
-}
+/* =====================================================
+   BACKGROUND IMAGES — how this works on every section below
 
-.img-slot::before {
-  content: attr(data-label);
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0.8rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-}
+   Each banner (nav, hero, page header) is built from two parts:
+     1. the section itself, which always has a solid color, so it
+        looks finished with nothing added
+     2. a small empty div inside it (.nav__bg, .hero__media,
+        .page-head__media) that holds a background-image rule
 
-.img-slot img,
-.img-slot video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+   OPTION A — plain color, no photo:
+     Delete that empty div from the HTML. The section keeps its
+     solid background and still looks intentional.
 
-.img-slot:has(img)::before,
-.img-slot:has(video)::before { display: none; }
+   OPTION B — with a photo:
+     Keep the div, and just point the background-image rule at
+     your file, e.g. background-image: url('images/hero.jpg');
+     Sizing is already handled (background-size: cover), so any
+     photo dimensions will fill the space cleanly.
+   ===================================================== */
 
-/* ============================================
-   NAV — background image adapts to the bar
-   via background-size:cover, any source size.
-   ============================================ */
+/* ---------- nav ---------- */
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
   height: 84px;
+  background: var(--void-soft);
+  border-bottom: 1px solid var(--line);
 }
 
 .nav__bg {
   position: absolute;
   inset: 0;
-  border: none;
-  border-bottom: 1px solid var(--line);
-}
-
-.nav__bg::before { font-size: 0.55rem; }
-
-/* this is the trick: cover + center means whatever image
-   you drop into .nav__bg (portrait, landscape, huge, tiny)
-   always fills the bar without distortion */
-.nav__bg img,
-.nav__bg video {
-  object-fit: cover;
-  object-position: center;
+  background-size: cover;
+  background-position: center;
+  /* background-image: url('images/nav-bg.jpg'); */
 }
 
 .nav__content {
@@ -133,12 +101,27 @@ a:focus-visible, [tabindex]:focus-visible {
   background: linear-gradient(180deg, rgba(20,20,26,0.35), rgba(20,20,26,0.55));
 }
 
-.nav__logo {
+.brand {
   font-family: 'Fraunces', serif;
   font-size: 1.15rem;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
 }
-.nav__logo span { font-style: italic; font-weight: 500; opacity: 0.8; }
+.brand span { font-style: italic; font-weight: 500; opacity: 0.8; }
+.brand--footer { font-size: 1.3rem; }
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  object-position: center;
+  background: var(--void-soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 3px;
+}
 
 .nav__links {
   display: flex;
@@ -160,15 +143,14 @@ a:focus-visible, [tabindex]:focus-visible {
   background: currentColor;
   transition: width 0.35s var(--ease);
 }
-.nav__links a:hover::after { width: 100%; }
+.nav__links a:hover::after,
+.nav__links a[aria-current]::after { width: 100%; }
 
 @media (max-width: 640px) {
   .nav__links { gap: 1.1rem; font-size: 0.68rem; }
 }
 
-/* ============================================
-   HERO
-   ============================================ */
+/* ---------- hero (index.html only) ---------- */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -176,13 +158,15 @@ a:focus-visible, [tabindex]:focus-visible {
   align-items: center;
   padding-top: 84px;
   overflow: hidden;
+  background: var(--void-soft);
 }
 
-.hero__bg {
+.hero__media {
   position: absolute;
   inset: 0;
-  border: none;
-  border-radius: 0;
+  background-size: cover;
+  background-position: center;
+  /* background-image: url('images/hero-bg.jpg'); */
 }
 
 .hero__scrim {
@@ -208,7 +192,7 @@ a:focus-visible, [tabindex]:focus-visible {
 
 .hero__title {
   font-size: clamp(2.6rem, 6vw, 5rem);
-  margin-bottom: 3.2rem;
+  margin-bottom: 2.6rem;
 }
 
 .hero__title em {
@@ -220,13 +204,20 @@ a:focus-visible, [tabindex]:focus-visible {
   color: transparent;
 }
 
-/* ============================================
-   TRENDING MARQUEE — pure CSS, no JS
-   Two identical groups sit side by side inside a
-   track twice the viewport width; the track slides
-   left by exactly one group's width (-50%) on loop,
-   so the seam is invisible and it scrolls forever.
-   ============================================ */
+.hero__cta {
+  display: inline-block;
+  margin-top: 2.4rem;
+  padding: 0.9rem 1.8rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--void);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: transform 0.3s var(--ease);
+}
+.hero__cta:hover { transform: translateY(-2px); }
+
+/* ---------- trending strip (index.html) ---------- */
 .marquee { overflow: hidden; }
 
 .marquee__label {
@@ -243,12 +234,9 @@ a:focus-visible, [tabindex]:focus-visible {
   animation: scroll-marquee 28s linear infinite;
 }
 
-/* hover to pause — a nice free interaction, still zero JS */
-.marquee:hover .marquee__track {
-  animation-play-state: paused;
-}
+.marquee:hover .marquee__track { animation-play-state: paused; }
 
-.marquee__group {
+.marquee__row {
   display: flex;
   gap: 1rem;
   padding-right: 1rem;
@@ -259,38 +247,97 @@ a:focus-visible, [tabindex]:focus-visible {
   width: clamp(140px, 16vw, 200px);
   aspect-ratio: 2 / 3;
   border-radius: 12px;
+  border: 1px solid var(--line);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--void-soft);
   transition: transform 0.3s var(--ease);
 }
-
 .marquee__card:hover { transform: translateY(-6px); }
+
+/* one photo per trending card — the duplicated row shares the same
+   five images so the loop is seamless */
+.marquee__card:nth-child(1),
+.marquee__card:nth-child(6)  { background-image: url('images/trending-1.jpg'); }
+.marquee__card:nth-child(2),
+.marquee__card:nth-child(7)  { background-image: url('images/trending-2.jpg'); }
+.marquee__card:nth-child(3),
+.marquee__card:nth-child(8)  { background-image: url('images/trending-3.jpg'); }
+.marquee__card:nth-child(4),
+.marquee__card:nth-child(9)  { background-image: url('images/trending-4.jpg'); }
+.marquee__card:nth-child(5),
+.marquee__card:nth-child(10) { background-image: url('images/trending-5.jpg'); }
 
 @keyframes scroll-marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-/* ============================================
-   EXPLORE — mood cards
-   ============================================ */
-.explore {
-  padding: 6rem 6vw;
-  max-width: 1280px;
+/* ---------- about (index.html) ---------- */
+.about {
+  max-width: 640px;
   margin: 0 auto;
+  padding: 6rem 6vw;
+  text-align: center;
+}
+.about h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); margin-bottom: 1rem; }
+.about p { color: var(--ink-dim); line-height: 1.65; }
+
+/* ---------- page header (categories.html, game-details.html) ---------- */
+.page-head {
+  position: relative;
+  overflow: hidden;
+  padding-top: 84px;
+  background: var(--void-soft);
 }
 
-.explore__head { text-align: center; max-width: 40ch; margin: 0 auto 3.5rem; }
-.explore__eyebrow {
+.page-head__media {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  /* background-image: url('images/categories-bg.jpg'); */
+}
+
+.page-head__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20,20,26,0.4) 0%, rgba(20,20,26,0.85) 100%);
+}
+
+.page-head__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 6rem 6vw 3rem;
+  text-align: center;
+}
+
+.page-head__eyebrow {
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-dim);
   margin: 0 0 0.6rem;
 }
-.explore__title { font-size: clamp(2rem, 4.4vw, 3.2rem); }
+.page-head__eyebrow a { text-decoration: underline; text-underline-offset: 3px; }
 
+.page-head h1 { font-size: clamp(2rem, 4.4vw, 3.2rem); }
+
+.page-head__sub {
+  margin-top: 0.9rem;
+  color: var(--ink-dim);
+  line-height: 1.6;
+}
+
+/* ---------- mood cards (categories.html) ---------- */
 .mood-grid {
+  padding: 4rem 6vw 6rem;
+  max-width: 1280px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.4rem;
 }
 
@@ -302,25 +349,32 @@ a:focus-visible, [tabindex]:focus-visible {
   background: var(--void-soft);
   transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
 }
-
 .mood-card:hover { transform: translateY(-6px); border-color: var(--tint); }
 
-.mood-card--cozy      { --tint: var(--cozy); }
 .mood-card--puzzle    { --tint: var(--puzzle); }
 .mood-card--create    { --tint: var(--create); }
 .mood-card--cook      { --tint: var(--cook); }
 .mood-card--adventure { --tint: var(--adventure); }
+.mood-card--wide { grid-column: 1 / -1; }
 
 .mood-card__media {
-  aspect-ratio: 16 / 10;
-  border: none;
-  border-radius: 0;
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--void-soft);
 }
 
-.mood-card__body { padding: 1.3rem 1.4rem 1.6rem; }
+/* one cover photo per mood — swap the file names for your own */
+#cozy .mood-card__media      { background-image: url('images/mood-cozy.jpg'); }
+#puzzle .mood-card__media    { background-image: url('images/mood-puzzle.jpg'); }
+#create .mood-card__media    { background-image: url('images/mood-create.jpg'); }
+#cook .mood-card__media      { background-image: url('images/mood-cook.jpg'); }
+#adventure .mood-card__media { background-image: url('images/mood-adventure.jpg'); }
 
-.mood-card__body h3 {
-  font-size: 1.35rem;
+.mood-card__body { padding: 1.4rem 1.5rem 1.7rem; }
+
+.mood-card__body h2 {
+  font-size: 1.4rem;
   color: var(--tint);
   margin-bottom: 0.4rem;
 }
@@ -349,21 +403,95 @@ a:focus-visible, [tabindex]:focus-visible {
   color: var(--ink-dim);
 }
 
-/* ============================================
-   ABOUT
-   ============================================ */
-.about {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 2rem 6vw 6rem;
-  text-align: center;
+.mood-card__link {
+  display: inline-block;
+  margin-top: 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--tint);
+  border-bottom: 1px solid currentColor;
 }
-.about h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); margin-bottom: 1rem; }
-.about p { color: var(--ink-dim); line-height: 1.65; }
 
-/* ============================================
-   FOOTER
-   ============================================ */
+/* ---------- game detail list (game-details.html) ---------- */
+.game-list {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 6vw 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
+}
+
+.game-detail {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+  align-items: start;
+  padding-bottom: 2.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.game-detail:last-child { border-bottom: none; }
+
+.game-detail__art {
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--void-soft);
+  border: 1px solid var(--line);
+}
+
+/* swap these file names for your own cover art, one per game */
+.game-list .game-detail:nth-child(1) .game-detail__art { background-image: url('images/unpacking.jpg'); }
+.game-list .game-detail:nth-child(2) .game-detail__art { background-image: url('images/spiritfarer.jpg'); }
+.game-list .game-detail:nth-child(3) .game-detail__art { background-image: url('images/a-short-hike.jpg'); }
+.game-list .game-detail:nth-child(4) .game-detail__art { background-image: url('images/animal-crossing.jpg'); }
+
+.game-detail__body h2 { font-size: 1.6rem; margin-bottom: 0.7rem; }
+
+.game-detail__desc {
+  color: var(--ink-dim);
+  line-height: 1.65;
+  margin: 0 0 1.1rem;
+  max-width: 55ch;
+}
+
+.game-detail__meta {
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.game-detail__meta li {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--ink-dim);
+}
+
+.game-detail__download {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  background: var(--cozy);
+  color: var(--void);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: transform 0.3s var(--ease);
+}
+.game-detail__download:hover { transform: translateY(-2px); }
+
+@media (max-width: 640px) {
+  .game-detail { grid-template-columns: 1fr; }
+  .game-detail__art { max-width: 220px; }
+}
+
+/* ---------- footer (all pages) ---------- */
 .footer {
   border-top: 1px solid var(--line);
   padding: 4rem 6vw 2rem;

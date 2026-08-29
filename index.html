@@ -1,217 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">    
-</head>
-<body>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MOODCADE — gaming for every mood</title>
+<title>MOODcade — gaming for every mood</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- ============ NAV ============
-       Background image lives in .nav__bg. Drop any size image in —
-       background-size:cover + background-position:center makes it
-       adapt to the navbar automatically, no matter its dimensions. -->
   <nav class="nav">
-    <div class="nav__bg img-slot" data-label="nav background image · any size, auto-covers">
-      <!-- PUT NAV BACKGROUND IMAGE HERE, e.g.: -->
-      <!-- <img src="images/nav-bg.jpg" alt=""> -->
-    </div>
+    <div class="nav__bg"></div>
     <div class="nav__content">
-      <a href="#home" class="nav__logo">MOOD<span>cade</span></a>
+      <a href="index.html" class="brand">
+        <img src="images/logo-cat.png" alt="MOODcade" class="brand-mark">
+        MOOD<span>cade</span>
+      </a>
       <ul class="nav__links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#explore">Explore</a></li>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="categories.html">Explore</a></li>
         <li><a href="#about">About</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- ============ HERO ============ -->
   <header class="hero" id="home">
-    <div class="hero__bg img-slot" data-label="hero background image or video · full bleed">
-      <!-- PUT HERO BACKGROUND HERE, e.g.: -->
-      <!-- <img src="images/hero-bg.jpg" alt=""> -->
-      <!-- or: <video src="videos/hero-bg.mp4" autoplay muted loop playsinline></video> -->
-    </div>
+    <div class="hero__media"></div>
     <div class="hero__scrim"></div>
 
     <div class="hero__inner">
       <p class="hero__eyebrow">A gaming arena, sorted by feeling</p>
       <h1 class="hero__title">Gaming for <em>every mood</em>.</h1>
 
-      <!-- ============ TRENDING MARQUEE ============
-           Pure CSS auto-scrolling strip — no JS.
-           The list is duplicated once below so the loop is seamless.
-           Hover pauses it (:hover + animation-play-state). -->
       <div class="marquee">
         <p class="marquee__label">Trending right now</p>
         <div class="marquee__track">
-          <div class="marquee__group">
-            <div class="marquee__card img-slot" data-label="Trending 1">
-              <!-- <img src="images/trending-1.jpg" alt="Trending game 1"> -->
-            </div>
-            <div class="marquee__card img-slot" data-label="Trending 2">
-              <!-- <img src="images/trending-2.jpg" alt="Trending game 2"> -->
-            </div>
-            <div class="marquee__card img-slot" data-label="Trending 3">
-              <!-- <img src="images/trending-3.jpg" alt="Trending game 3"> -->
-            </div>
-            <div class="marquee__card img-slot" data-label="Trending 4">
-              <!-- <img src="images/trending-4.jpg" alt="Trending game 4"> -->
-            </div>
-            <div class="marquee__card img-slot" data-label="Trending 5">
-              <!-- <img src="images/trending-5.jpg" alt="Trending game 5"> -->
-            </div>
+          <div class="marquee__row">
+            <div class="marquee__card"></div>
+            <div class="marquee__card"></div>
+            <div class="marquee__card"></div>
+            <div class="marquee__card"></div>
+            <div class="marquee__card"></div>
           </div>
-          <!-- duplicate group = seamless loop, keep images identical to the group above -->
-          <div class="marquee__group" aria-hidden="true">
-            <div class="marquee__card img-slot" data-label="Trending 1">
-              <!-- <img src="images/trending-1.jpg" alt=""> -->
-            </div>
-            <div class="marquee__card img-slot" data-label="Trending 2">
-              <!-- <img src="images/trending-2.jpg" alt=""> -->
-            </div>
-            <div class="marquee__card img-slot" data-label="Trending 3">
-              <!-- <img src="images/trending-3.jpg" alt=""> -->
-            </div>
-            <div class="marquee__card img-slot" data-label="Trending 4">
-              <!-- <img src="images/trending-4.jpg" alt=""> -->
-            </div>
-            <div class="marquee__card img-slot" data-label="Trending 5">
-              <!-- <img src="images/trending-5.jpg" alt=""> -->
-            </div>
+          <div class="marquee__row" aria-hidden="true">
+            <div class="marquee__card"></div>
+            <div class="marquee__card"></div>
+            <div class="marquee__card"></div>
+            <div class="marquee__card"></div>
+            <div class="marquee__card"></div>
           </div>
         </div>
       </div>
+
+      <a href="categories.html" class="hero__cta">Find your mood</a>
     </div>
   </header>
 
-  <!-- ============ EXPLORE / MOOD CARDS ============ -->
-  <section class="explore" id="explore">
-    <div class="explore__head">
-      <p class="explore__eyebrow">Find your fit</p>
-      <h2 class="explore__title">What mood are you in?</h2>
-    </div>
-
-    <div class="mood-grid">
-
-      <article class="mood-card mood-card--cozy">
-        <div class="mood-card__media img-slot" data-label="cozy · leaves, soft light, image or video">
-          <!-- <img src="images/cozy.jpg" alt="Cozy and unwinding games"> -->
-        </div>
-        <div class="mood-card__body">
-          <h3>Unwinding</h3>
-          <p>Slow mornings, small tasks, nowhere to be.</p>
-          <ul class="mood-card__games">
-            <li>Unpacking</li>
-            <li>Spiritfarer</li>
-            <li>A Short Hike</li>
-            <li>Animal Crossing</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="mood-card mood-card--puzzle">
-        <div class="mood-card__media img-slot" data-label="puzzle · neurons, circuitry">
-          <!-- <img src="images/puzzle.jpg" alt="Puzzle and brain games"> -->
-        </div>
-        <div class="mood-card__body">
-          <h3>Brain Teasers</h3>
-          <p>Logic, patterns, and the click when it makes sense.</p>
-          <ul class="mood-card__games">
-            <li>The Room</li>
-            <li>Baba Is You</li>
-            <li>Portal</li>
-            <li>Monument Valley</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="mood-card mood-card--create">
-        <div class="mood-card__media img-slot" data-label="create · tiny towns, blueprints">
-          <!-- <img src="images/create.jpg" alt="Create and design games"> -->
-        </div>
-        <div class="mood-card__body">
-          <h3>Creative</h3>
-          <p>Building something that's entirely yours.</p>
-          <ul class="mood-card__games">
-            <li>Townscaper</li>
-            <li>The Sims</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="mood-card mood-card--cook">
-        <div class="mood-card__media img-slot" data-label="cook · steam, kitchen">
-          <!-- <img src="images/cook.jpg" alt="Cook and create games"> -->
-        </div>
-        <div class="mood-card__body">
-          <h3>Cooking</h3>
-          <p>Controlled chaos and a five-star ticket.</p>
-          <ul class="mood-card__games">
-            <li>Cooking Fever</li>
-            <li>Overcooked</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="mood-card mood-card--adventure">
-        <div class="mood-card__media img-slot" data-label="adventure · landscape, horizon">
-          <!-- <img src="images/adventure.jpg" alt="Immersive adventure games"> -->
-        </div>
-        <div class="mood-card__body">
-          <h3>Adventurous</h3>
-          <p>The big mainstream swing — scale, story, stakes.</p>
-          <ul class="mood-card__games">
-            <li>GTA VI</li>
-            <li>Life is Strange</li>
-            <li>Choo-Choo Charles</li>
-            <li>Kena: Bridge of Spirits</li>
-          </ul>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ============ ABOUT ============ -->
   <section class="about" id="about">
     <h2>About MOODcade</h2>
     <p>We think the mood you're in matters more than the genre you usually play. MOODcade sorts games by how you want to feel tonight, not by category, rating, or hype.</p>
   </section>
 
-  <!-- ============ FOOTER ============ -->
   <footer class="footer">
     <div class="footer__top">
       <div class="footer__brand">
-        <p class="nav__logo">MOOD<span>cade</span></p>
+        <p class="brand brand--footer">MOOD<span>cade</span></p>
         <p class="footer__tag">Gaming for every mood.</p>
       </div>
 
       <div class="footer__col">
         <h4>Explore</h4>
-        <a href="#home">Home</a>
-        <a href="#explore">Explore</a>
+        <a href="index.html">Home</a>
+        <a href="categories.html">Explore</a>
         <a href="#about">About</a>
       </div>
 
       <div class="footer__col">
         <h4>Moods</h4>
-        <a href="#explore">Unwinding</a>
-        <a href="#explore">Brain Teasers</a>
-        <a href="#explore">Creative</a>
-        <a href="#explore">Cooking</a>
-        <a href="#explore">Adventurous</a>
+        <a href="categories.html#cozy">Unwinding</a>
+        <a href="categories.html#puzzle">Brain Teasers</a>
+        <a href="categories.html#create">Creative</a>
+        <a href="categories.html#cook">Cooking</a>
+        <a href="categories.html#adventure">Adventurous</a>
       </div>
 
       <div class="footer__col">
@@ -227,8 +96,5 @@
     </div>
   </footer>
 
-</body>
-</html>
-    
 </body>
 </html>
