@@ -166,7 +166,7 @@ a:focus-visible, [tabindex]:focus-visible {
   inset: 0;
   background-size: cover;
   background-position: center;
-  /* background-image: url('images/hero-bg.jpg'); */
+   background-image: url('images/14.jpg'); 
 }
 
 .hero__scrim {
@@ -248,7 +248,7 @@ a:focus-visible, [tabindex]:focus-visible {
   aspect-ratio: 2 / 3;
   border-radius: 12px;
   border: 1px solid var(--line);
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-color: var(--void-soft);
   transition: transform 0.3s var(--ease);
@@ -258,15 +258,15 @@ a:focus-visible, [tabindex]:focus-visible {
 /* one photo per trending card — the duplicated row shares the same
    five images so the loop is seamless */
 .marquee__card:nth-child(1),
-.marquee__card:nth-child(6)  { background-image: url('images/trending-1.jpg'); }
+.marquee__card:nth-child(6)  { background-image: url('images/111.jpg'); }
 .marquee__card:nth-child(2),
-.marquee__card:nth-child(7)  { background-image: url('images/trending-2.jpg'); }
+.marquee__card:nth-child(7)  { background-image: url('images/112.jpg'); }
 .marquee__card:nth-child(3),
-.marquee__card:nth-child(8)  { background-image: url('images/trending-3.jpg'); }
+.marquee__card:nth-child(8)  { background-image: url('images/113.jpg'); }
 .marquee__card:nth-child(4),
-.marquee__card:nth-child(9)  { background-image: url('images/trending-4.jpg'); }
+.marquee__card:nth-child(9)  { background-image: url('images/114.jpg'); }
 .marquee__card:nth-child(5),
-.marquee__card:nth-child(10) { background-image: url('images/trending-5.jpg'); }
+.marquee__card:nth-child(10) { background-image: url('images/115.jpg'); }
 
 @keyframes scroll-marquee {
   from { transform: translateX(0); }
@@ -365,11 +365,11 @@ a:focus-visible, [tabindex]:focus-visible {
 }
 
 /* one cover photo per mood — swap the file names for your own */
-#cozy .mood-card__media      { background-image: url('images/mood-cozy.jpg'); }
-#puzzle .mood-card__media    { background-image: url('images/mood-puzzle.jpg'); }
-#create .mood-card__media    { background-image: url('images/mood-create.jpg'); }
-#cook .mood-card__media      { background-image: url('images/mood-cook.jpg'); }
-#adventure .mood-card__media { background-image: url('images/mood-adventure.jpg'); }
+#cozy .mood-card__media      { background-image: url('images/16.jpg'); }
+#puzzle .mood-card__media    { background-image: url('images/17.jpg'); }
+#create .mood-card__media    { background-image: url('images/7.jpg'); }
+#cook .mood-card__media      { background-image: url('images/9.jpg'); }
+#adventure .mood-card__media { background-image: url('images/13.jpg'); }
 
 .mood-card__body { padding: 1.4rem 1.5rem 1.7rem; }
 
