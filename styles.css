@@ -27,7 +27,7 @@ body {
   color: var(--ink);
   font-family: 'Space Grotesk', sans-serif;
   -webkit-font-smoothing: antialiased;
-}
+  
 
 h1, h2, h3, h4 {
   font-family: 'Fraunces', serif;
@@ -67,9 +67,9 @@ a:focus-visible, [tabindex]:focus-visible {
 .nav__bg {
   position: absolute;
   inset: 0;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
-  /* background-image: url('images/nav-bg.jpg'); */
+  background-image: url('images/52.jpg'); 
 }
 
 .nav__content {
@@ -146,9 +146,11 @@ a:focus-visible, [tabindex]:focus-visible {
 .hero__media {
   position: absolute;
   inset: 0;
-  background-size: cover;
+  
   background-position: center;
-  background-color: rgb(16, 16, 40); 
+   
+  background-image: url('images/14.jpg');
+  background-size: contain;
 }
 
 .hero__scrim {
@@ -228,8 +230,8 @@ a:focus-visible, [tabindex]:focus-visible {
   flex: 0 0 auto;
   width: clamp(140px, 16vw, 200px);
   aspect-ratio: 2 / 3;
-  border-radius: 12px;
-  border: 1px solid var(--line);
+  border-radius: 20px;
+  border: 5px solid black;
   background-size: contain;
   background-position: center;
   background-color: var(--void-soft);
@@ -240,7 +242,7 @@ a:focus-visible, [tabindex]:focus-visible {
 /* one photo per trending card — the duplicated row shares the same
    five images so the loop is seamless */
 .marquee__card:nth-child(1),
-.marquee__card:nth-child(6)  { background-image: url('images/111.jpg'); }
+.marquee__card:nth-child(6)  { background-image: url('images/111.jpg');}
 .marquee__card:nth-child(2),
 .marquee__card:nth-child(7)  { background-image: url('images/112.jpg'); }
 .marquee__card:nth-child(3),
@@ -433,10 +435,11 @@ a:focus-visible, [tabindex]:focus-visible {
 .game-detail__body h2 { font-size: 1.6rem; margin-bottom: 0.7rem; }
 
 .game-detail__desc {
-  color: var(--ink-dim);
+  color: rgb(142, 157, 91);
   line-height: 1.65;
   margin: 0 0 1.1rem;
   max-width: 55ch;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
 .game-detail__meta {
