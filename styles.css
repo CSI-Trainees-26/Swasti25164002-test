@@ -333,7 +333,7 @@ a:focus-visible, [tabindex]:focus-visible {
   background: var(--void-soft);
   transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
 }
-.mood-card:hover { transform: translateY(-6px); border-color: var(--tint); }
+.mood-card:hover { transform: translateY(-10px); border-color: var(--tint); }
 
 .mood-card--puzzle    { --tint: var(--puzzle); }
 .mood-card--create    { --tint: var(--create); }
